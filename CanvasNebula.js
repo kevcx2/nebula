@@ -11,19 +11,16 @@
   }
 
   //Draw a single nebula layer
-  CanvasNebula.prototype.render = function(r, g, b, scale, intensity, falloff){ //r, g, b, scale, intensity, falloff, layers){
-    ////FOR TESTING - TO BE REMOVED:
-    scale = Math.max(this.canvas.width, this.canvas.height) / 3
-
+  CanvasNebula.prototype.render = function(r, g, b, scale, intensity, falloff){
     var nebRender = new NebulaRenderer(
       this.ctx,
-      this.imageData,
-      r,         //Math.random(),
-      g,         //Math.random(),
-      b,         //Math.random(),
-      scale,     //Math.max(canvas.width, canvas.height) / 3,
-      intensity, //Math.random() * 0.3 + 1,
-      falloff    //Math.random() * 3 + 5
+      this.imageData,   //Good Example Values:
+      r,                //Math.random(),
+      g,                //Math.random(),
+      b,                //Math.random(),
+      scale,            //Math.max(canvas.width, canvas.height) / 3,
+      intensity,        //Math.random() * 0.3 + 1,
+      falloff           //Math.random() * 3 + 5
     );
 
     done = 0;
@@ -32,6 +29,7 @@
     }
     this.ctx.putImageData(this.imageData, 0, 0);
   };
+
   ////////////////////////////////////////////////////////////////////
   // Nebula Renderer                                               //
   ///////////////////////////////////////////////////////////////////
@@ -56,12 +54,10 @@
       var displace = this.recursiveField(x, y, depth - 1, divisor / 2);
       return this.pn.noise(x / divisor + displace, y / divisor + displace, 0);
   };
-  // NebulaRenderer.prototype.field = function(r, g, b, x, y, intensity, falloff) {
   NebulaRenderer.prototype.field = function(x, y, intensity, falloff) {
       var i = Math.min(1, this.recursiveField(x, y, 5, 2) * intensity);
       i = Math.pow(i, falloff);
       return i;
-      // return rgba(r, g, b, i);
   };
 
   NebulaRenderer.prototype.next = function() {
@@ -100,7 +96,7 @@
   ////////////////////////////////////////////////////////////////////
   // Utility functions                                              //
   ////////////////////////////////////////////////////////////////////
-
+  // Format rgb values for compactness
   var rgba = function(r, g, b, a) {
       r = Math.floor(r * 255);
       g = Math.floor(g * 255);
@@ -109,19 +105,10 @@
       return {r: r, g: g, b: b, a: a};
   };
 
-  var rgbaCanvas = function(width, height, r, g, b, a) {
-      var canvas = document.createElement("canvas");
-      canvas.width = width;
-      canvas.height = height;
-      var context = canvas.getContext("2d");
-      context.fillStyle = rgba(r, g, b, a);
-      context.fillRect(0, 0, width, height);
-      return canvas;
-  };
-
+  // Combine two pixel values
   // alpha:
   // αr = αa + αb (1 - αa)
-  // Resulting color components:
+  // resulting color components:
   // Cr = (Ca αa + Cb αb (1 - αa)) / αr
   var composite = function(cbR, cbG, cbB, cbA, caR, caG, caB, caA) {
     crA = caA + cbA * (1 - caA);
@@ -131,7 +118,7 @@
     return {r: crR, g: crG, b: crB, a: crA};
   }
 
-  // scaling ImageData for rendering at lower resolutions and scaling back up
+  // Optionally scale ImageData for rendering at lower resolutions and scaling back up
   var scaleImageData = function(imageData, scale, ctx) {
       var scaled = ctx.createImageData(imageData.width * scale, imageData.height * scale);
       var subLine = ctx.createImageData(scale, 1).data
@@ -155,7 +142,6 @@
   ////////////////////////////////////////////////////////////////////
   // Iterator                                                       //
   ////////////////////////////////////////////////////////////////////
-
   var XYIterator = function(width, height) {
       this.width = width;
       this.height = height;
@@ -193,7 +179,6 @@
   ////////////////////////////////////////////////////////////////////
   // Perlin & PRNG                                                  //
   ////////////////////////////////////////////////////////////////////
-
   function Perlin(seed) {
       var ClassicalNoise = function(r) {
           if (r === undefined) r = Math;

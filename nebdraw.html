@@ -6,16 +6,19 @@
       <script src="CanvasNebula.js"></script>
       <script>
         window.onload = function(){
+          var width = 450;
+          var height = 450;
           var container = document.querySelector('.canvas-container');
-          var neb = new CanvasNebula(container, 450, 450);
+          var neb = new CanvasNebula(container, width, height);
+
           container.addEventListener('click', function(){
             neb.render(
-              Math.random(),
-              Math.random(),
-              Math.random(),
-              undefined,
-              Math.random() * 0.3 + 1,
-              Math.random() * 3 + 5
+              Math.random(),               //r
+              Math.random(),               //g
+              Math.random(),               //b
+              Math.max(width, height) / 3, //scale
+              Math.random() * 0.3 + 1,     //intensity
+              Math.random() * 3 + 5        //falloff
             );
           });
         };
