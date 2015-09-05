@@ -7,7 +7,7 @@
   }
 
   Genetic.prototype.peek = function() {
-    return Genetic.lineage[0];
+    return this.lineage[0];
   };
 
   Genetic.prototype.size = function() {
@@ -44,7 +44,7 @@
     var evolved = {};
 
     for (var key in parent) {
-      if (state.hasOwnProperty(key)) {
+      if (parent.hasOwnProperty(key)) {
         var dist = gaussian(parent[key], this.variance[key]);
         var attr = dist.ppf(Math.random());
 

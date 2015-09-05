@@ -27,34 +27,45 @@
 
       <script type="text/javascript" charset="utf-8">
         window.onload = function() {
-          window.genetic.seed(20); 
+          var width = 450;
+          var height = 450;
+          var container = document.querySelector('.canvas-container');
+          var neb = new CanvasNebula(container, width, height);
+
+          window.genetic.seed(10); 
           
           neb.render(genetic.peek());
+          console.log(genetic.peek());
           
-          document.querySelector("button").addEventListener("click", function(event) {
-            if (genetic.size() < 1) {
-              console.log("out of states");
-              genetic.seed(20);
-            }
-            var state = event.currentTarget.id;
-            switch (state) {
-            case "excel":
-              genetic.excel();
-              break;
-            case "survive":
-              genetic.survive();
-              break;
-            case "die":
-              genetic.die();
-              break;
-            default:
-              break;
-            }
-            neb.clear();
-            neb.render(genetic.peek());
-          });
+          var els = document.querySelectorAll("button");
+          
+          for (var i = 0; i < els.length; i++) {
+            els[i].addEventListener("click", function(event) {
+              if (genetic.size() < 2) {
+                console.log("reseeding");
+                genetic.seed(10);
+              }
+              var state = event.currentTarget.id;
+              switch (state) {
+                case "excel":
+                  genetic.excel();
+                  break;
+                case "survive":
+                  genetic.survive();
+                  break;
+                case "die":
+                  genetic.die();
+                  break;
+                default:
+                  break;
+              }
+              // neb.clear();
+              neb.render(genetic.peek());
+              console.log(genetic.peek());
+            });
 
-        }
+          }
+        };
       </script>
     </body>
 </html>
