@@ -4,28 +4,57 @@
       <meta charset="UTF-8" />
       <title>Neb.io</title>
       <script src="CanvasNebula.js"></script>
+      <script src="gaussian.js"> </script>
+      <script src="genetic.js"> </script>
+
       <script>
         window.onload = function(){
           var width = 450;
           var height = 450;
           var container = document.querySelector('.canvas-container');
           var neb = new CanvasNebula(container, width, height);
-
-          container.addEventListener('click', function(){
-            neb.render(
-              Math.random(),               //r
-              Math.random(),               //g
-              Math.random(),               //b
-              Math.max(width, height) / 3, //scale
-              Math.random() * 0.3 + 1,     //intensity
-              Math.random() * 3 + 5        //falloff
-            );
-          });
         };
       </script>
     </head>
     <body>
       <div class='canvas-container' style='background-color:black'>
       </div>
+      <button id="excel">excel</button>
+      <br />
+      <button id="survive">survive</button>
+      <br />
+      <button id="die">die</button>
+
+      <script type="text/javascript" charset="utf-8">
+        window.onload = function() {
+          window.genetic.seed(20); 
+          
+          neb.render(genetic.peek());
+          
+          document.querySelector("button").addEventListener("click", function(event) {
+            if (genetic.size() < 1) {
+              console.log("out of states");
+              genetic.seed(20);
+            }
+            var state = event.currentTarget.id;
+            switch (state) {
+            case "excel":
+              genetic.excel();
+              break;
+            case "survive":
+              genetic.survive();
+              break;
+            case "die":
+              genetic.die();
+              break;
+            default:
+              break;
+            }
+            neb.clear();
+            neb.render(genetic.peek());
+          });
+
+        }
+      </script>
     </body>
 </html>
