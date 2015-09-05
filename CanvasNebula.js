@@ -37,6 +37,17 @@
     this.ctx.putImageData(this.imageData, 0, 0);
   };
 
+  CanvasNebula.prototype.drawRandom = function(){
+    this.render({
+      r: Math.random(),               //r
+      g: Math.random(),               //g
+      b: Math.random(),               //b
+      scale: Math.max(this.canvas.width, this.canvas.height) / 3, //scale
+      intensity: Math.random() * 0.3 + 1,     //intensity
+      falloff: Math.random() * 3 + 5        //falloff
+    });
+  };
+
   ////////////////////////////////////////////////////////////////////
   // Nebula Renderer                                               //
   ///////////////////////////////////////////////////////////////////
