@@ -11,16 +11,16 @@
   }
 
   //Draw a single nebula layer
-  CanvasNebula.prototype.render = function(r, g, b, scale, intensity, falloff){
+  CanvasNebula.prototype.render = function(settings){
     var nebRender = new NebulaRenderer(
       this.ctx,
-      this.imageData,   //Good Example Values:
-      r,                //Math.random(),
-      g,                //Math.random(),
-      b,                //Math.random(),
-      scale,            //Math.max(canvas.width, canvas.height) / 3,
-      intensity,        //Math.random() * 0.3 + 1,
-      falloff           //Math.random() * 3 + 5
+      this.imageData,            //Good Example Values:
+      settings.r,                //Math.random(),
+      settings.g,                //Math.random(),
+      settings.b,                //Math.random(),
+      settings.scale,            //Math.max(canvas.width, canvas.height) / 3,
+      settings.intensity,        //Math.random() * 0.3 + 1,
+      settings.falloff           //Math.random() * 3 + 5
     );
 
     done = 0;
@@ -60,6 +60,7 @@
       return i;
   };
 
+  // Pixel by pixel generation and compositing
   NebulaRenderer.prototype.next = function() {
       var next = this.iterator.next();
 
