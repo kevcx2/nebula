@@ -7,14 +7,6 @@
       <script src="gaussian.js"> </script>
       <script src="genetic.js"> </script>
 
-      <script>
-        window.onload = function(){
-          var width = 450;
-          var height = 450;
-          var container = document.querySelector('.canvas-container');
-          var neb = new CanvasNebula(container, width, height);
-        };
-      </script>
     </head>
     <body>
       <div class='canvas-container' style='background-color:black'>
@@ -30,7 +22,8 @@
           var width = 450;
           var height = 450;
           var container = document.querySelector('.canvas-container');
-          var neb = new CanvasNebula(container, width, height);
+
+          window.neb = new CanvasNebula(container, width, height);
 
           window.genetic.seed(10); 
           

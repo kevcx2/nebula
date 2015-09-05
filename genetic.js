@@ -74,7 +74,7 @@
     g: 255,
     b: 255,
     scale: 500,
-    intensity: 5,
+    intensity: 3,
     falloff: 10
   };
 
