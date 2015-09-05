@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+    <head>
+      <meta charset="UTF-8" />
+      <title>Neb.io</title>
+      <script src="CanvasNebula.js"></script>
+      <script>
+        window.onload = function(){
+          var container = document.querySelector('.canvas-container');
+          var neb = new CanvasNebula(container, 450, 450);
+          container.addEventListener('click', function(){
+            neb.render(
+              Math.random(),
+              Math.random(),
+              Math.random(),
+              undefined,
+              Math.random() * 0.3 + 1,
+              Math.random() * 3 + 5
+            );
+          });
+        };
+      </script>
+    </head>
+    <body>
+      <div class='canvas-container' style='background-color:black'>
+      </div>
+    </body>
+</html>
