@@ -7,6 +7,7 @@
     this.canvas.height = height;
     this.ctx = this.canvas.getContext('2d');
     this.imageData = this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height);
+    this.blankImageData = this.ctx.createImageData(this.imageData);
     this.container.appendChild(this.canvas);
   }
 
@@ -27,6 +28,12 @@
     while (done < 1) {
       done = nebRender.next();
     }
+    this.ctx.putImageData(this.imageData, 0, 0);
+  };
+
+  //Reset the canvas to its pre-drawn, clear state
+  CanvasNebula.prototype.clear = function () {
+    this.imageData = this.ctx.createImageData(this.blankImageData);
     this.ctx.putImageData(this.imageData, 0, 0);
   };
 
